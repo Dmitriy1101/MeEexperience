@@ -1,0 +1,36 @@
+import psycopg2
+import PSQLmy
+
+with psycopg2.connect(database='music_service', user='postgres', password='NotGoodNotBad') as conn:
+    
+    print('Погнали тест! №1')
+    PSQLmy.create_db(conn)
+    PSQLmy.add_client(conn,'Gosha', 'Tucha', 'Gosha.Tucha@mail.work')
+    PSQLmy.find_client(conn)
+    PSQLmy.add_client(conn,'Masha', 'Torch', 'Masha.Torch@mail.work', '+79999999999')
+    PSQLmy.find_client(conn)
+    print('Погнали тест! №2')
+    PSQLmy.add_phone(conn, '1', '+78888888888')
+    PSQLmy.find_client(conn)
+    PSQLmy.add_phone(conn, '2', '+77777777777')
+    PSQLmy.find_client(conn)
+    print('Погнали тест! №3')
+    PSQLmy.find_client(conn, name = 'Gosha')
+    PSQLmy.delete_phone(conn, 1, '+78888888888')
+    PSQLmy.find_client(conn)
+    PSQLmy.delete_client(conn, 2)
+    PSQLmy.find_client(conn)
+    print('Погнали тест! №4')
+    PSQLmy.delete_all_client(conn)
+    PSQLmy.find_client(conn)
+    PSQLmy.add_client(conn,'Gosha', 'Tucha', 'Gosha.Tucha@mail.work')
+    PSQLmy.find_client(conn)
+    PSQLmy.find_phone(conn, '1')
+    PSQLmy.add_phone(conn, '1', '+78888888888')
+    PSQLmy.add_phone(conn, '1', '+77777777777')
+    PSQLmy.find_phone(conn, '1')
+    PSQLmy.find_client(conn)
+    PSQLmy.delete_all_client(conn)
+    print('Закончили тест!')
+
+conn.close()
